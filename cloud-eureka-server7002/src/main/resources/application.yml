@@ -1,0 +1,11 @@
+server:
+  port: 7002 # 7002, 7003
+eureka:
+  instance:
+    hostname: eureka7002.com # eureka服务端的实例名称 在hosts配置文件添加映射 127.0.0.1 eureka7001.com
+  client:
+    register-with-eureka: false # false 代表不注册自己
+    fetch-registry: false # false 表示自身就是注册中心,并不需要去检索服务
+    service-url:
+      # 注册中心的地址
+      defaultZone: http://eureka7001.com:7001/eureka

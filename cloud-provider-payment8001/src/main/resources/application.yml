@@ -1,0 +1,30 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: cloud-payment-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 当前数据源操作类型
+    driver-class-name: com.mysql.jdbc.Driver      # 数据库驱动包
+    url: jdbc:mysql://47.93.237.204:3306/cloud2020?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml # 扫描所有mapper.xml
+  type-aliases-package: com.leancloud.springcloud.entities
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      #defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://eureka7001.com:7001/eureka
+  instance:
+    instance-id: payment8001 # 设置eureka上显示的名称
+    prefer-ip-address: true # 访问路径可以显示IP地址
+    # Eureka客户端向服务端发送心跳的时间间隔,单位是秒(默认30秒)
+    #lease-renewal-interval-in-seconds: 1
+    # Eureka服务端在收到最后一个心跳等待时间上限,单位为秒(默认90秒)
+    #lease-expiration-duration-in-seconds: 2
