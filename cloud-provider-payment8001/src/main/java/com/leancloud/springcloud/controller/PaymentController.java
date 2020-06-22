@@ -15,6 +15,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @auther: weibin
@@ -86,7 +87,7 @@ public class PaymentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "支付订单的id",required = true)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public CommonResult load(@PathVariable  int id){
         Payment payment = paymentService.findByiId(id);
         System.out.println("8001");
@@ -111,11 +112,20 @@ public class PaymentController {
         return this.discoveryClient;
     }
 
-    @GetMapping(value = "/payment/lb")
+    @GetMapping(value = "/lb")
     public String getPaymentLB(){
         return serverPort;
     }
 
+    @GetMapping(value = "/feign/timeout")
+    public String paymentFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
 
 
 }

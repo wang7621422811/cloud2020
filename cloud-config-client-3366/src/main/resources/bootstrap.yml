@@ -1,0 +1,27 @@
+server:
+  port: 3366
+spring:
+  application:
+    name: config-client
+  cloud:
+    # Config配置
+    config:
+      label: master # github上的分支
+      name: config  # 文件的名称
+      profile: dev  # 开发的版本 config-dev config-prod config-test ...
+      uri: http://localhost:3344 # config center uri
+  rabbitmq:
+    host: 47.93.237.204
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

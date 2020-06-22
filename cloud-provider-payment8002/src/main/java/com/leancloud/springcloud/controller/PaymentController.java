@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @auther: weibin
  * @create: 2020/5/28 15:50
@@ -78,17 +80,26 @@ public class PaymentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "支付订单的id",required = true)
     })
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public CommonResult load(@PathVariable  int id){
         Payment payment = paymentService.findByiId(id);
         System.out.println("8002");
         return new CommonResult(200,"查询成功",payment);
     }
 
-    @GetMapping(value = "/payment/lb")
+    @GetMapping(value = "/lb")
     public String getPaymentLB(){
         return serverPort;
     }
 
+    @GetMapping(value = "/feign/timeout")
+    public String paymentFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
 
 }
